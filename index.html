@@ -1,7 +1,67 @@
 <DOCTYPE HTML>
 
+<!-- The Forum Container -->
+<div class="reddit-container">
+  <div class="forum-header">
+    <div class="community-avatar">r/</div>
+    <div>
+      <h2 class="forum-title">treats community chat</h2>
+      <p class="forum-subtitle">Ask questions, leave feedback, and chat with the community!</p>
+    </div>
+  </div>
 
-<script src="https://giscus.app/client.js"
+  <!-- The Giscus script loads inside this placeholder element -->
+  <div class="giscus"></div>
+</div>
+
+<!-- CSS Styling -->
+<style>
+  .reddit-container {
+    max-width: 750px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #0d1117; /* Matches GitHub's dark theme background */
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  .forum-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #30363d;
+  }
+
+  .community-avatar {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #ff4500, #ff5722); /* Reddit Orange-Red */
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .forum-title {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #f0f6fc;
+  }
+
+  .forum-subtitle {
+    margin: 4px 0 0 0;
+    font-size: 0.9rem;
+    color: #8b949e;
+  }
+</style>
+
+<!-- PASTE YOUR GENERATED GISCUS SCRIPT BELOWTHIS LINE --> <script src="https://giscus.app/client.js"
         data-repo="treatwashere/treats-community-chat"
         data-repo-id="R_kgDOTqRWxA"
         data-category="General"
