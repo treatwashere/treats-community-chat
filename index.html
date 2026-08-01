@@ -33,10 +33,9 @@
     /* 3. Style the Reddit Header */
     .forum-header {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 15px;
+      gap: 20px;
       margin-bottom: 25px;
       padding-bottom: 20px;
       border-bottom: 1px solid #30363d;
@@ -45,7 +44,9 @@
     .header-info {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 15px;
+      width: 100%;
     }
 
     /* The orange r/ icon */
@@ -77,11 +78,13 @@
       color: #8b949e;
     }
 
-    /* 4. Category Selector Styling */
+    /* 4. Category Selector Styling (Centered & Expanded) */
     .category-control {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      align-items: center;
+      width: 100%;
+      gap: 8px;
     }
 
     .category-label {
@@ -93,16 +96,20 @@
     }
 
     .category-select {
+      width: 100%;
+      max-width: 500px; /* Gives the dropdown a much longer width */
       background-color: #21262d;
       color: #c9d1d9;
       border: 1px solid #30363d;
-      border-radius: 6px;
-      padding: 8px 14px;
+      border-radius: 8px;
+      padding: 10px 16px;
       font-size: 0.95rem;
       font-weight: 500;
       outline: none;
       cursor: pointer;
+      text-align: center; /* Centers the text inside the dropdown */
       transition: background-color 0.2s, border-color 0.2s;
+      box-sizing: border-box;
     }
 
     .category-select:hover {
@@ -130,9 +137,9 @@
         </div>
       </div>
 
-      <!-- Category Dropdown -->
+      <!-- Category Dropdown (Centered and Longer) -->
       <div class="category-control">
-        <label for="categorySelect" class="category-label">Category</label>
+        <label for="categorySelect" class="category-label">Select Category</label>
         <select id="categorySelect" class="category-select">
           <!-- Add your category options here -->
           <option value="General" data-id="DIC_kwDOTqRWxM4DCdX-">General</option>
