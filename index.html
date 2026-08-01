@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Community Discussions</title>
+  <title>Community Chat</title>
   <style>
     /* 1. Set the background of the whole page to dark so it matches Giscus */
     body {
@@ -34,10 +34,18 @@
     .forum-header {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 15px;
       margin-bottom: 25px;
       padding-bottom: 20px;
       border-bottom: 1px solid #30363d;
+    }
+
+    .header-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
 
     /* The orange r/ icon */
@@ -68,6 +76,43 @@
       font-size: 0.9rem;
       color: #8b949e;
     }
+
+    /* 4. Category Selector Styling */
+    .category-control {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .category-label {
+      font-size: 0.8rem;
+      color: #8b949e;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .category-select {
+      background-color: #21262d;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      outline: none;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .category-select:hover {
+      background-color: #30363d;
+      border-color: #8b949e;
+    }
+
+    .category-select:focus {
+      border-color: #58a6ff;
+    }
   </style>
 </head>
 <body>
@@ -77,36 +122,94 @@
     
     <!-- Header -->
     <div class="forum-header">
-      <div class="community-avatar">r/</div>
-      <div>
-        <h2 class="forum-title">Community Discussions</h2>
-        <p class="forum-subtitle">Upvote, reply, and share your thoughts!</p>
+      <div class="header-info">
+        <div class="community-avatar">r/</div>
+        <div>
+          <h2 class="forum-title">Community Chat</h2>
+          <p class="forum-subtitle">Upvote, reply, and share your thoughts!</p>
+        </div>
+      </div>
+
+      <!-- Category Dropdown -->
+      <div class="category-control">
+        <label for="categorySelect" class="category-label">Category</label>
+        <select id="categorySelect" class="category-select">
+          <!-- Add your category options here -->
+          <option value="General" data-id="DIC_kwDOTqRWxM4DCdX-">General</option>
+          <option value="Q&A" data-id="YOUR_QA_CATEGORY_ID">Q&A</option>
+          <option value="Ideas" data-id="YOUR_IDEAS_CATEGORY_ID">Ideas</option>
+          <option value="Announcements" data-id="YOUR_ANNOUNCEMENTS_CATEGORY_ID">Announcements</option>
+        </select>
       </div>
     </div>
 
-    <!-- Giscus will load inside this div -->
-    <div class="giscus"></div>
+    <!-- Container where Giscus will load -->
+    <div id="giscus-wrapper"></div>
 
   </div>
 
-  <!-- ======================================================= -->
-  <!-- REPLACE THE SCRIPT BELOW WITH YOUR PERSONAL GISCUS CODE -->
-  <!-- ======================================================= -->
-  <script src="https://giscus.app/client.js"
-        data-repo="treatwashere/treats-community-chat"
-        data-repo-id="R_kgDOTqRWxA"
-        data-category="General"
-        data-category-id="DIC_kwDOTqRWxM4DCdX-"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="transparent_dark"
-        data-lang="en"
-        crossorigin="anonymous"
-        async>
-</script>
+  <script>
+    // Configuration options for Giscus
+    const giscusConfig = {
+      repo: "treatwashere/treats-community-chat",
+      repoId: "R_kgDOTqRWxA",
+      mapping: "pathname",
+      strict: "0",
+      reactionsEnabled: "1",
+      emitMetadata: "0",
+      inputPosition: "bottom",
+      theme: "transparent_dark",
+      lang: "en"
+    };
+
+    /**
+     * Re-initializes and loads Giscus iframe with the selected category.
+     */
+    function loadGiscus(categoryName, categoryId) {
+      const wrapper = document.getElementById('giscus-wrapper');
+      
+      // Clear previous instance
+      wrapper.innerHTML = '';
+
+      // Create new Giscus container element
+      const giscusContainer = document.createElement('div');
+      giscusContainer.className = 'giscus';
+      wrapper.appendChild(giscusContainer);
+
+      // Create and populate the client script
+      const script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+      script.dataset.repo = giscusConfig.repo;
+      script.dataset.repoId = giscusConfig.repoId;
+      script.dataset.category = categoryName;
+      script.dataset.categoryId = categoryId;
+      script.dataset.mapping = giscusConfig.mapping;
+      script.dataset.strict = giscusConfig.strict;
+      script.dataset.reactionsEnabled = giscusConfig.reactionsEnabled;
+      script.dataset.emitMetadata = giscusConfig.emitMetadata;
+      script.dataset.inputPosition = giscusConfig.inputPosition;
+      script.dataset.theme = giscusConfig.theme;
+      script.dataset.lang = giscusConfig.lang;
+      script.crossOrigin = 'anonymous';
+      script.async = true;
+
+      giscusContainer.appendChild(script);
+    }
+
+    // Dropdown change listener
+    const selectEl = document.getElementById('categorySelect');
+    selectEl.addEventListener('change', (e) => {
+      const selectedOption = e.target.options[e.target.selectedIndex];
+      const categoryName = selectedOption.value;
+      const categoryId = selectedOption.getAttribute('data-id');
+
+      loadGiscus(categoryName, categoryId);
+    });
+
+    // Initial load with default selected category
+    const initialOption = selectEl.options[selectEl.selectedIndex];
+    loadGiscus(initialOption.value, initialOption.getAttribute('data-id'));
+  </script>
 
 </body>
 </html>
